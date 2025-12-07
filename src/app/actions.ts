@@ -9,7 +9,7 @@ export async function generateColorGrade(referenceImageBase64: string) {
     throw new Error("GEMINI_API_KEY is not set");
   }
 
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-001" });
 
   const prompt = `
     Analyze the color grading, lighting, and mood of this image.
@@ -56,14 +56,20 @@ export async function generateColorGrade(referenceImageBase64: string) {
     const text = response.text();
 
     // Clean up markdown code blocks if present
-    const cleanText = text
-      .replace(/```json/g, "")
-      .replace(/```/g, "")
-      .trim();
+    // Extract JSON object using regex (finds matching {})
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
 
-    return JSON.parse(cleanText);
-  } catch (error) {
+    if (!jsonMatch) {
+      console.error("Invalid response format:", text);
+      throw new Error("Could not parse JSON from AI response");
+    }
+
+    return JSON.parse(jsonMatch[0]);
+  } catch (error: any) {
     console.error("Error generating color grade:", error);
-    throw new Error("Failed to generate color grade");
+    // Propagate the actual error message for debugging
+    throw new Error(
+      `Failed to generate color grade: ${error.message || String(error)}`
+    );
   }
 }
