@@ -208,3 +208,10 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+## Active Technologies
+- TypeScript 5.x, Node.js 20.x + Next.js 16, React 19 (experimental), Tailwind CSS, TypeScrip (007-color-grading)
+- N/A for MVP (images processed in-memory) (007-color-grading)
+
+## Recent Changes
+- 007-color-grading: Added TypeScript 5.x, Node.js 20.x + Next.js 16, React 19 (experimental), Tailwind CSS, TypeScrip

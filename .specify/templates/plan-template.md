@@ -31,7 +31,12 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] **Film-Grade Aesthetics:** Does the plan prioritize visual quality and cinematic output?
+- [ ] **Advanced Color Science:** Does the design incorporate an adaptive, node-based pipeline?
+- [ ] **Component-Based & Server-First UI:** Does the frontend plan use modular, server-rendered components?
+- [ ] **Robustness and Validation:** Does the plan include input validation and error handling?
+- [ ] **User-Centric Experience:** Does the plan account for real-time feedback and an intuitive UI?
+- [ ] **Test-Driven Development:** Is a test-first (TDD) approach mandatory for all new code?
 
 ## Project Structure
 
