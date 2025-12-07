@@ -27,10 +27,10 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 [P] Install Jest, React Testing Library, and necessary Jest DOM matchers via pnpm.
-- [ ] T002 [P] Configure Jest and Babel for Next.js and TypeScript project in `jest.config.js` and `.babelrc`.
-- [ ] T003 [P] Install the Google AI client library for JavaScript (`@google/generative-ai`).
-- [ ] T004 Create a dedicated test directory structure, e.g., `src/__tests__`.
+- [x] T001 [P] Install Jest, React Testing Library, and necessary Jest DOM matchers via pnpm.
+- [x] T002 [P] Configure Jest and Babel for Next.js and TypeScript project in `jest.config.js` and `.babelrc`.
+- [x] T003 [P] Install the Google AI client library for JavaScript (`@google/generative-ai`).
+- [x] T004 Create a dedicated test directory structure, e.g., `src/__tests__`.
 
 
 ---
@@ -41,9 +41,9 @@ description: "Task list template for feature implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T005 Create the main application layout in `src/app/page.tsx` with placeholders for the reference image, target image, and output.
-- [ ] T006 Define the `AppState` and the state management logic within the `src/hooks/use-color-grade.ts` hook.
-- [ ] T007 Write a test for the `use-color-grade` hook to verify its initial state in `src/__tests__/hooks/use-color-grade.test.ts`.
+- [x] T005 Create the main application layout in `src/app/page.tsx` with placeholders for the reference image, target image, and output.
+- [x] T006 Define the `AppState` and the state management logic within the `src/hooks/use-color-grade.ts` hook.
+- [x] T007 Write a test for the `use-color-grade` hook to verify its initial state in `src/__tests__/hooks/use-color-grade.test.ts`.
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 

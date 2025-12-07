@@ -3,61 +3,121 @@
 import { useState } from "react";
 import { generateColorGrade } from "@/app/actions";
 
-export interface ColorGradeResult {
-  matrix: number[];
-  contrast: number;
-  saturation: number;
-  brightness: number;
-  sepia: number;
-  description: string;
+// Based on data-model.md
+export interface ImageFile {
+  id: string;
+  file: File;
+  previewUrl: string;
+  width: number;
+  height: number;
 }
 
-export function useColorGrade() {
-  const [referenceImage, setReferenceImage] = useState<string | null>(null);
-  const [targetImage, setTargetImage] = useState<string | null>(null);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [result, setResult] = useState<ColorGradeResult | null>(null);
-  const [error, setError] = useState<string | null>(null);
+// Based on data-model.md
+export interface ColorGradeSettings {
+  lut: string | null;
+  exposure: number;
+  contrast: number;
+  saturation: number;
+  temperature: number;
+}
 
-  const handleImageUpload = (file: File, type: "reference" | "target") => {
+// Based on data-model.md
+export interface AppState {
+  referenceImage: ImageFile | null;
+  targetImage: ImageFile | null;
+  outputImage: string | null;
+  settings: ColorGradeSettings;
+  isLoading: boolean;
+  error: string | null;
+}
+
+const initialState: AppState = {
+  referenceImage: null,
+  targetImage: null,
+  outputImage: null,
+  settings: {
+    lut: null,
+    exposure: 0,
+    contrast: 0,
+    saturation: 0,
+    temperature: 0,
+  },
+  isLoading: false,
+  error: null,
+};
+
+export function useColorGrade() {
+  const [state, setState] = useState<AppState>(initialState);
+
+  const setReferenceImage = (file: File) => {
     const reader = new FileReader();
     reader.onload = (e) => {
-      if (type === "reference") {
-        setReferenceImage(e.target?.result as string);
-      } else {
-        setTargetImage(e.target?.result as string);
-      }
+      const img = new Image();
+      img.onload = () => {
+        setState(prevState => ({
+          ...prevState,
+          referenceImage: {
+            id: crypto.randomUUID(),
+            file,
+            previewUrl: e.target?.result as string,
+            width: img.width,
+            height: img.height,
+          }
+        }));
+      };
+      img.src = e.target?.result as string;
     };
     reader.readAsDataURL(file);
   };
 
-  const generateLook = async () => {
-    if (!referenceImage) {
-      setError("Please upload a reference image first");
+  const setTargetImage = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        setState(prevState => ({
+          ...prevState,
+          targetImage: {
+            id: crypto.randomUUID(),
+            file,
+            previewUrl: e.target?.result as string,
+            width: img.width,
+            height: img.height,
+          }
+        }));
+      };
+      img.src = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const generate = async () => {
+    if (!state.referenceImage || !state.targetImage) {
+      setState(prevState => ({ ...prevState, error: "Please upload both reference and target images." }));
       return;
     }
 
-    setIsGenerating(true);
-    setError(null);
+    setState(prevState => ({ ...prevState, isLoading: true, error: null }));
 
     try {
-      const data = await generateColorGrade(referenceImage);
-      setResult(data);
+      const result = await generateColorGrade(state.referenceImage, state.targetImage);
+      setState(prevState => ({
+        ...prevState,
+        outputImage: result.imageData,
+        settings: { ...prevState.settings, lut: result.lutData },
+        isLoading: false,
+      }));
     } catch (err) {
-      setError("Failed to generate look. Check API Key.");
+      const errorMessage = err instanceof Error ? err.message : "An unknown error occurred.";
+      setState(prevState => ({ ...prevState, error: `Failed to generate look: ${errorMessage}`, isLoading: false }));
       console.error(err);
-    } finally {
-      setIsGenerating(false);
     }
   };
 
   return {
-    referenceImage,
-    targetImage,
-    isGenerating,
-    result,
-    error,
-    handleImageUpload,
-    generateLook,
+    ...state,
+    setReferenceImage,
+    setTargetImage,
+    generate,
   };
 }
