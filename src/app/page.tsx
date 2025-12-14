@@ -5,7 +5,7 @@ import { MainCanvas } from "@/components/layout/main-canvas";
 
 export default function Home() {
   return (
-    <div className="flex h-screen flex-col bg-background text-foreground dark">
+    <div className="flex h-screen flex-col bg-background text-foreground">
       <Header />
       <main className="flex flex-1 overflow-hidden">
         <SidebarLeft />

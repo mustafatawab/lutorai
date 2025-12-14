@@ -1,25 +1,31 @@
-# Implementation Plan: AI Color Grading
+# Implementation Plan: [FEATURE]
 
-**Branch**: `007-color-grading` | **Date**: 2025-12-07 | **Spec**: [spec.md](spec.md)
+**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
 **Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
 
 **Note**: This template is filled in by the `/sp.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
 
 ## Summary
 
-This plan outlines the implementation of an AI-powered color grading tool. It will allow users to upload a reference and a target image, and the system will use a Vision LLM to transfer the color style from the reference to the target. The frontend will be built with Next.js.
+[Extract from feature spec: primary requirement + technical approach from research]
 
 ## Technical Context
 
-**Language/Version**: TypeScript 5.x, Node.js 20.x
-**Primary Dependencies**: Next.js 16, React 19 (experimental), Tailwind CSS, TypeScript
-**Storage**: N/A for MVP (images processed in-memory)
-**Testing**: Jest, React Testing Library (NEEDS CLARIFICATION: Confirm against project standards)
-**Target Platform**: Web Browser (Modern Evergreen Browsers)
-**Project Type**: Web application
-**Performance Goals**: Interactive UI with real-time feedback; Image processing under 5 seconds.
-**Constraints**: Max image upload size: 20MB. Supported formats: JPG, PNG, TIFF.
-**Scale/Scope**: Single-user, client-side focused MVP.
+<!--
+  ACTION REQUIRED: Replace the content in this section with the technical details
+  for the project. The structure here is presented in advisory capacity to guide
+  the iteration process.
+-->
+
+**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
+**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
+**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
+**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
+**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+**Project Type**: [single/web/mobile - determines source structure]  
+**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
+**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
+**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
 ## Constitution Check
 
@@ -31,6 +37,7 @@ This plan outlines the implementation of an AI-powered color grading tool. It wi
 - [ ] **Robustness and Validation:** Does the plan include input validation and error handling?
 - [ ] **User-Centric Experience:** Does the plan account for real-time feedback and an intuitive UI?
 - [ ] **Test-Driven Development:** Is a test-first (TDD) approach mandatory for all new code?
+- [ ] **Multi-Theme UI:** Does the plan include support for dark, light, and system theme modes?
 
 ## Project Structure
 
@@ -47,18 +54,51 @@ specs/[###-feature]/
 ```
 
 ### Source Code (repository root)
+<!--
+  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
+  for this feature. Delete unused options and expand the chosen structure with
+  real paths (e.g., apps/admin, packages/something). The delivered plan must
+  not include Option labels.
+-->
 
 ```text
-# Option 1: Single project (DEFAULT)
+# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
 src/
-├── app/
-├── components/
-├── hooks/
+├── models/
+├── services/
+├── cli/
 └── lib/
 
+tests/
+├── contract/
+├── integration/
+└── unit/
+
+# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+backend/
+├── src/
+│   ├── models/
+│   ├── services/
+│   └── api/
+└── tests/
+
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   └── services/
+└── tests/
+
+# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+api/
+└── [same as backend above]
+
+ios/ or android/
+└── [platform-specific structure: feature modules, UI flows, platform tests]
 ```
 
-**Structure Decision**: The existing repository follows a single-project structure for a Next.js application. All source code resides within the `src` directory. This is the simplest and most appropriate structure for the current scope of the project.
+**Structure Decision**: [Document the selected structure and reference the real
+directories captured above]
 
 ## Complexity Tracking
 

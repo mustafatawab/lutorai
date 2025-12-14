@@ -2,6 +2,7 @@ import { Film, Download, Settings2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { AIControls } from "@/components/layout/ai-controls";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Header() {
   return (
@@ -31,6 +32,8 @@ export function Header() {
           <Download className="h-4 w-4" />
           <span className="hidden sm:inline">Download Now</span>
         </Button>
+
+        <ThemeToggle />
 
         <Sheet>
           <SheetTrigger asChild>

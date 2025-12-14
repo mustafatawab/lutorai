@@ -19,9 +19,9 @@ export function MainCanvas() {
   const matrixString = result ? result.matrix.join(" ") : "";
 
   return (
-    <div className="flex flex-1 flex-col gap-4 bg-black/40 p-6 overflow-y-auto">
+    <div className="flex flex-1 flex-col gap-4 bg-black/40 dark:bg-black/60 p-6 overflow-y-auto">
       {/* Controls Area */}
-      <div className="flex flex-wrap gap-4 p-4 bg-card/30 rounded-lg border border-border/20">
+      <div className="flex flex-wrap gap-4 p-4 bg-card/30 dark:bg-card/60 rounded-lg border border-border/20 dark:border-border/10">
         <div className="flex flex-col gap-2">
           <Label
             htmlFor="ref-upload"
@@ -62,7 +62,7 @@ export function MainCanvas() {
           <Button
             onClick={generateLook}
             disabled={!referenceImage || isGenerating}
-            className="gap-2 bg-indigo-600 hover:bg-indigo-700"
+            className="gap-2 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600"
           >
             {isGenerating ? "Analyzing..." : "Match Color"}
             <ArrowRight className="h-4 w-4" />
@@ -73,7 +73,7 @@ export function MainCanvas() {
       {/* Canvas Area */}
       <div className="flex flex-1 gap-4 min-h-[400px]">
         {/* Reference View */}
-        <div className="flex-1 relative rounded-lg border border-border/20 bg-black/20 overflow-hidden">
+        <div className="flex-1 relative rounded-lg border border-border/20 dark:border-border/10 bg-black/20 dark:bg-black/40 overflow-hidden">
           {referenceImage ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -87,13 +87,13 @@ export function MainCanvas() {
               <p className="text-sm">Upload Reference</p>
             </div>
           )}
-          <div className="absolute top-2 left-2 bg-black/60 px-2 py-1 rounded text-xs text-white">
+          <div className="absolute top-2 left-2 bg-black/60 dark:bg-black/80 px-2 py-1 rounded text-xs text-white dark:text-white">
             Reference
           </div>
         </div>
 
         {/* Target View */}
-        <div className="flex-1 relative rounded-lg border border-border/20 bg-black/20 overflow-hidden">
+        <div className="flex-1 relative rounded-lg border border-border/20 dark:border-border/10 bg-black/20 dark:bg-black/40 overflow-hidden">
           {targetImage ? (
             <div className="relative w-full h-full">
               {/* SVG Filter Definition */}
@@ -125,14 +125,14 @@ export function MainCanvas() {
               <p className="text-sm">Upload Target</p>
             </div>
           )}
-          <div className="absolute top-2 left-2 bg-black/60 px-2 py-1 rounded text-xs text-white">
+          <div className="absolute top-2 left-2 bg-black/60 dark:bg-black/80 px-2 py-1 rounded text-xs text-white dark:text-white">
             {result ? "AI Graded" : "Original Target"}
           </div>
         </div>
       </div>
 
       {result && (
-        <div className="p-4 bg-green-900/20 border border-green-900/50 rounded text-green-200 text-sm">
+        <div className="p-4 bg-green-900/20 dark:bg-green-500/10 border border-green-900/50 dark:border-green-500/20 rounded text-green-200 dark:text-green-300 text-sm">
           <strong>AI Analysis:</strong> {result.description}
         </div>
       )}
