@@ -37,6 +37,7 @@
 - [ ] **Robustness and Validation:** Does the plan include input validation and error handling?
 - [ ] **User-Centric Experience:** Does the plan account for real-time feedback and an intuitive UI?
 - [ ] **Test-Driven Development:** Is a test-first (TDD) approach mandatory for all new code?
+- [ ] **Multi-Theme UI:** Does the plan include support for dark, light, and system theme modes?
 
 ## Project Structure
 

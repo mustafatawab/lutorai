@@ -212,6 +212,8 @@ See `.specify/memory/constitution.md` for code quality, testing, performance, se
 ## Active Technologies
 - TypeScript 5.x, Node.js 20.x + Next.js 16, React 19 (experimental), Tailwind CSS, TypeScrip (007-color-grading)
 - N/A for MVP (images processed in-memory) (007-color-grading)
+- TypeScript 5.x, Node.js 20.x, Next.js 16, React 19 + `next-themes` (001-theme-switching)
+- Browser localStorage (001-theme-switching)
 
 ## Recent Changes
 - 007-color-grading: Added TypeScript 5.x, Node.js 20.x + Next.js 16, React 19 (experimental), Tailwind CSS, TypeScrip

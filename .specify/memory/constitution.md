@@ -1,13 +1,10 @@
 <!--
 Sync Impact Report
-- Version change: 1.0.0
-- List of modified principles: Initialized all principles.
-- Added sections: All sections initialized.
-- Removed sections: None
+- Version change: 1.0.0 -> 1.1.0
+- List of modified principles:
+  - Added: VII. Multi-Theme UI
 - Templates requiring updates:
   - ✅ .specify/templates/plan-template.md
-  - ✅ .specify/templates/spec-template.md
-  - ✅ .specify/templates/tasks-template.md
 - Follow-up TODOs: None
 -->
 # Lutoria AI Constitution
@@ -32,6 +29,9 @@ The user experience is paramount. The interface will be intuitive, provide real-
 ### VI. Test-Driven Development (NON-NEGOTIABLE)
 TDD is mandatory. Tests must be written before implementation to ensure correctness and maintainability. A Red-Green-Refactor cycle will be strictly enforced.
 
+### VII. Multi-Theme UI
+The system must support dark mode, light mode, and a system-based theme setting. This ensures user comfort and accessibility across different environments.
+
 ## Tech Stack Requirements
 - **Frontend:** Next.js 16, React Server Components, Tailwind CSS.
 - **Image Handling:** Robust components for uploads with previews.
@@ -44,4 +44,4 @@ TDD is mandatory. Tests must be written before implementation to ensure correctn
 ## Governance
 This constitution is the single source of truth for project principles. Amendments require team consensus and documentation. All development must align with these principles.
 
-**Version**: 1.0.0 | **Ratified**: 2025-12-07 | **Last Amended**: 2025-12-07
+**Version**: 1.1.0 | **Ratified**: 2025-12-07 | **Last Amended**: 2025-12-14
