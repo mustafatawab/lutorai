@@ -1,4 +1,4 @@
-import { Upload, Image as ImageIcon, History } from "lucide-react";
+import { History } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card } from "@/components/ui/card";
@@ -43,22 +43,7 @@ export function SidebarLeft() {
         <h3 className="mb-4 text-xs font-bold tracking-wider text-muted-foreground">
           SOURCE MEDIA
         </h3>
-        <div className="grid grid-cols-2 gap-3">
-          <Button
-            variant="outline"
-            className="flex h-24 flex-col gap-2 border-dashed border-muted-foreground/50 hover:border-primary hover:bg-accent/50 dark:border-muted-foreground/20 dark:hover:bg-accent/20"
-          >
-            <Upload className="h-6 w-6 text-muted-foreground" />
-            <span className="text-xs text-muted-foreground">IMPORT LOG</span>
-          </Button>
-          <Button
-            variant="outline"
-            className="flex h-24 flex-col gap-2 border-dashed border-muted-foreground/50 hover:border-primary hover:bg-accent/50 dark:border-muted-foreground/20 dark:hover:bg-accent/20"
-          >
-            <ImageIcon className="h-6 w-6 text-muted-foreground" />
-            <span className="text-xs text-muted-foreground">MATCH REF</span>
-          </Button>
-        </div>
+
       </div>
 
       <div className="flex items-center justify-between px-4 pb-2 pt-4">
