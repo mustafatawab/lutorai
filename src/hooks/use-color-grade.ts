@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { generateColorGrade } from "@/app/actions";
+
 
 // Based on data-model.md
 export interface ImageFile {
@@ -106,22 +106,39 @@ export function useColorGrade() {
     setState(prevState => ({ ...prevState, isLoading: true, error: null, outputImage: null }));
 
     try {
-      const aiResult = await generateColorGrade(state.referenceImage.previewUrl);
+      // Placeholder logic for color grading - bypassing LLM
+      // Generate some fixed or slightly randomized values
+      const placeholderMatrix = [
+        1.0, 0.0, 0.0, 0.0, 0.0,
+        0.0, 1.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 1.0, 0.0,
+      ];
+
+      // Slight randomization to show "some" effect
+      const randomContrast = Math.floor(Math.random() * 20) + 90; // 90-110
+      const randomSaturation = Math.floor(Math.random() * 20) + 90; // 90-110
+      const randomBrightness = Math.floor(Math.random() * 20) + 90; // 90-110
+      const randomSepia = Math.floor(Math.random() * 10); // 0-10
+
+      // For simplicity, a generic description
+      const placeholderDescription = "Color grade applied using placeholder logic (LLM disabled).";
+
 
       setState(prevState => ({
         ...prevState,
         outputImage: state.targetImage!.previewUrl,
         settings: {
           ...prevState.settings,
-          contrast: aiResult.contrast,
-          saturation: aiResult.saturation,
-          brightness: aiResult.brightness, // Added
-          sepia: aiResult.sepia,           // Added
+          contrast: randomContrast,
+          saturation: randomSaturation,
+          brightness: randomBrightness,
+          sepia: randomSepia,
           exposure: prevState.settings.exposure,
           temperature: prevState.settings.temperature,
         },
-        matrix: aiResult.matrix,
-        description: aiResult.description,
+        matrix: placeholderMatrix,
+        description: placeholderDescription,
         isLoading: false,
       }));
     } catch (err) {
