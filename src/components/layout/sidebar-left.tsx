@@ -39,12 +39,7 @@ const PRESETS = [
 export function SidebarLeft() {
   return (
     <div className="flex w-80 flex-col border-r border-border bg-card/50 dark:bg-card/80">
-      <div className="p-4">
-        <h3 className="mb-4 text-xs font-bold tracking-wider text-muted-foreground">
-          SOURCE MEDIA
-        </h3>
 
-      </div>
 
       <div className="flex items-center justify-between px-4 pb-2 pt-4">
         <h3 className="text-xs font-bold tracking-wider text-muted-foreground">
