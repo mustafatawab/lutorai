@@ -9,7 +9,7 @@ export async function generateColorGrade(referenceImageBase64: string) {
     throw new Error("GEMINI_API_KEY is not set");
   }
 
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-001" });
+  const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
   const prompt = `
     Analyze the color grading, lighting, and mood of this image.
