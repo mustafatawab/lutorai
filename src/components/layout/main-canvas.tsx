@@ -1,6 +1,6 @@
 "use client";
 
-import { ScanLine, Upload, ArrowRight } from "lucide-react";
+import { ScanLine, ArrowRight } from "lucide-react";
 import { useColorGrade } from "@/hooks/use-color-grade";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,13 +10,18 @@ export function MainCanvas() {
   const {
     referenceImage,
     targetImage,
-    isGenerating,
-    result,
-    handleImageUpload,
-    generateLook,
+    isLoading,
+    outputImage,
+    settings,
+    matrix,
+    description,
+    setReferenceImage, // Added
+    setTargetImage,   // Added
+    generate,
   } = useColorGrade();
 
-  const matrixString = result ? result.matrix.join(" ") : "";
+  // matrixString will now come from the state's matrix
+  const matrixString = matrix ? matrix.join(" ") : "";
 
   return (
     <div className="flex flex-1 flex-col gap-4 bg-black/40 dark:bg-black/60 p-6 overflow-y-auto">
@@ -36,7 +41,7 @@ export function MainCanvas() {
             className="w-64"
             onChange={(e) =>
               e.target.files?.[0] &&
-              handleImageUpload(e.target.files[0], "reference")
+              setReferenceImage(e.target.files[0]) // Changed
             }
           />
         </div>
@@ -54,17 +59,17 @@ export function MainCanvas() {
             className="w-64"
             onChange={(e) =>
               e.target.files?.[0] &&
-              handleImageUpload(e.target.files[0], "target")
+              setTargetImage(e.target.files[0]) // Changed
             }
           />
         </div>
         <div className="flex items-end">
           <Button
-            onClick={generateLook}
-            disabled={!referenceImage || isGenerating}
+            onClick={generate} // Changed from generateLook
+            disabled={!referenceImage || isLoading}
             className="gap-2 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600"
           >
-            {isGenerating ? "Analyzing..." : "Match Color"}
+            {isLoading ? "Analyzing..." : "Match Color"}
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
@@ -77,7 +82,7 @@ export function MainCanvas() {
           {referenceImage ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={referenceImage}
+              src={referenceImage.previewUrl} // Use previewUrl
               alt="Reference"
               className="w-full h-full object-contain"
             />
@@ -97,7 +102,7 @@ export function MainCanvas() {
           {targetImage ? (
             <div className="relative w-full h-full">
               {/* SVG Filter Definition */}
-              {result && (
+              {matrix && ( // Use matrix here
                 <svg className="absolute w-0 h-0">
                   <filter id="ai-color-grade">
                     <feColorMatrix type="matrix" values={matrixString} />
@@ -107,13 +112,13 @@ export function MainCanvas() {
 
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={targetImage}
+                src={outputImage || targetImage.previewUrl} // Use outputImage (which is targetImage.previewUrl)
                 alt="Target"
                 className="w-full h-full object-contain transition-all duration-500"
                 style={
-                  result
+                  matrix // Apply filter if matrix exists
                     ? {
-                        filter: `url(#ai-color-grade) contrast(${result.contrast}%) saturate(${result.saturation}%) brightness(${result.brightness}%) sepia(${result.sepia}%)`,
+                        filter: `url(#ai-color-grade) contrast(${settings.contrast}%) saturate(${settings.saturation}%) brightness(${settings.brightness}%) sepia(${settings.sepia}%)`,
                       }
                     : {}
                 }
@@ -126,14 +131,14 @@ export function MainCanvas() {
             </div>
           )}
           <div className="absolute top-2 left-2 bg-black/60 dark:bg-black/80 px-2 py-1 rounded text-xs text-white dark:text-white">
-            {result ? "AI Graded" : "Original Target"}
+            {matrix ? "AI Graded" : "Original Target"} {/* Use matrix to check if graded */}
           </div>
         </div>
       </div>
 
-      {result && (
+      {description && ( // Use description here
         <div className="p-4 bg-green-900/20 dark:bg-green-500/10 border border-green-900/50 dark:border-green-500/20 rounded text-green-200 dark:text-green-300 text-sm">
-          <strong>AI Analysis:</strong> {result.description}
+          <strong>AI Analysis:</strong> {description}
         </div>
       )}
     </div>

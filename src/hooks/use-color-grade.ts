@@ -14,11 +14,12 @@ export interface ImageFile {
 
 // Based on data-model.md
 export interface ColorGradeSettings {
-  lut: string | null;
   exposure: number;
   contrast: number;
   saturation: number;
   temperature: number;
+  brightness: number; // Added
+  sepia: number;     // Added
 }
 
 // Based on data-model.md
@@ -29,6 +30,8 @@ export interface AppState {
   settings: ColorGradeSettings;
   isLoading: boolean;
   error: string | null;
+  matrix: number[] | null;
+  description: string | null;
 }
 
 const initialState: AppState = {
@@ -36,14 +39,17 @@ const initialState: AppState = {
   targetImage: null,
   outputImage: null,
   settings: {
-    lut: null,
     exposure: 0,
-    contrast: 0,
-    saturation: 0,
+    contrast: 100,
+    saturation: 100,
     temperature: 0,
+    brightness: 100, // Added
+    sepia: 0,        // Added
   },
   isLoading: false,
   error: null,
+  matrix: null,
+  description: null,
 };
 
 export function useColorGrade() {
@@ -97,14 +103,25 @@ export function useColorGrade() {
       return;
     }
 
-    setState(prevState => ({ ...prevState, isLoading: true, error: null }));
+    setState(prevState => ({ ...prevState, isLoading: true, error: null, outputImage: null }));
 
     try {
-      const result = await generateColorGrade(state.referenceImage, state.targetImage);
+      const aiResult = await generateColorGrade(state.referenceImage.previewUrl);
+
       setState(prevState => ({
         ...prevState,
-        outputImage: result.imageData,
-        settings: { ...prevState.settings, lut: result.lutData },
+        outputImage: state.targetImage!.previewUrl,
+        settings: {
+          ...prevState.settings,
+          contrast: aiResult.contrast,
+          saturation: aiResult.saturation,
+          brightness: aiResult.brightness, // Added
+          sepia: aiResult.sepia,           // Added
+          exposure: prevState.settings.exposure,
+          temperature: prevState.settings.temperature,
+        },
+        matrix: aiResult.matrix,
+        description: aiResult.description,
         isLoading: false,
       }));
     } catch (err) {

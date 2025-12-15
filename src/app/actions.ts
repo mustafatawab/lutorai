@@ -65,11 +65,17 @@ export async function generateColorGrade(referenceImageBase64: string) {
     }
 
     return JSON.parse(jsonMatch[0]);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error generating color grade:", error);
     // Propagate the actual error message for debugging
+    let errorMessage = "An unknown error occurred.";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === 'string') {
+      errorMessage = error;
+    }
     throw new Error(
-      `Failed to generate color grade: ${error.message || String(error)}`
+      `Failed to generate color grade: ${errorMessage}`
     );
   }
 }
